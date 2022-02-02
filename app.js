@@ -24,11 +24,13 @@ app.use(express.static(path.join(__dirname, 'public')));
   let output = ""
   fs.readdir(path.join(__dirname, './jpg'), async function (err, files) {
     // files.forEach((file) => {
-
+    
     let i = 0;
     for (let i = 400; i < 800; i++) {
       let file = files[i];
-      
+      if(file.includes('.gif')){
+        continue;
+      }
       let { data: { text } } = await
         Tesseract.recognize(
           path.join(__dirname, `./jpg/${file}`),
